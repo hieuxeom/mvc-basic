@@ -29,10 +29,10 @@
         <i class='bx bx-menu' id="menu-icon"></i>
         <!-- Links -->
         <ul class="navbar">
-            <li><a href="index.php?url=home">Home</a></li>
-            <li><a href="index.php?url=home">About Us</a></li>
-            <li><a href="index.php?url=home">products</a></li>
-            <li><a href="index.php?url=home">customers</a></li>
+            <li><a href="index.php?url=home">Trang chủ</a></li>
+            <li><a href="index.php?url=home">Giới thiệu</a></li>
+            <li><a href="index.php?url=home">Sản phẩm</a></li>
+            <li><a href="index.php?url=blog">Tin tức</a></li>
         </ul>
         <!-- Icon -->
         <div class="header-icon">

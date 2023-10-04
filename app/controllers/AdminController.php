@@ -5,6 +5,8 @@ class AdminController extends BaseController
     private $adminModel;
     private $productModel;
     private $categoryModel;
+    private $blogModel;
+
     public function __construct()
     {
         $this->loadModel('AdminModel');
@@ -13,6 +15,8 @@ class AdminController extends BaseController
         $this->productModel = new ProductModel;
         $this->loadModel('CategoryModel');
         $this->categoryModel = new CategoryModel;
+        $this->loadModel('BlogModel');
+        $this->blogModel = new BlogModel;
     }
 
     public function index()
@@ -55,7 +59,6 @@ class AdminController extends BaseController
 
                 case 'update':
                     print_r($_REQUEST);
-                    // $_FILES['prod_thumbnail']['name']
                     $this->productModel->updateProduct($_REQUEST['prod_id'], $_REQUEST['select_category'], $_REQUEST['prod_name'], $_REQUEST['prod_desc'], $_REQUEST['prod_price'], $_REQUEST['prod_stock'], $_FILES);
                     return $this->view('admin.log', [
                         'status' => 'Cập nhật thành công sản phẩm',
@@ -64,7 +67,7 @@ class AdminController extends BaseController
                 case 'submit':
                     $checkInsert = $this->productModel->addProduct($_REQUEST['select_category'], $_REQUEST['prod_name'], $_REQUEST['prod_desc'], $_REQUEST['prod_price'], $_REQUEST['prod_stock'], $_FILES);
                     if ($checkInsert == 1) {
-                        $this->adminModel->moveFile($_FILES, $this->productModel->getIdProduct($_REQUEST['prod_name'], $_REQUEST['select_category']));
+                        $this->adminModel->moveFileProduct($_FILES, $this->productModel->getIdProduct($_REQUEST['prod_name'], $_REQUEST['select_category']));
                         return $this->view('admin.log', [
                             'status' => 'Thêm thành công sản phẩm',
                             'url_back' => 'index.php?url=admin/product&action=view'
@@ -133,6 +136,73 @@ class AdminController extends BaseController
             return $this->blockView();
         }
     }
+
+    public function blog()
+    {
+        if ($this->checkPermission()) {
+            $action = $_REQUEST['action'];
+            switch ($action) {
+                case 'view':
+                    $listPost = $this->blogModel->getAllPost();
+                    $listCategories = $this->blogModel->getAllBlogCategories();
+                    return $this->view('admin.blog_view',
+                        [
+                            'listPosts' => $listPost,
+                            'listCategories' => $listCategories
+                        ]);
+                case 'add':
+                    $listCategories = $this->blogModel->getAllBlogCategories();
+                    return $this->view('admin.blog_add', [
+                        'listCategories' => $listCategories,
+                    ]);
+                case 'delete':
+                    $this->blogModel->deletePost($_REQUEST['post_id']);
+                    return $this->view('base.log', [
+                        'status' => "Success!",
+                        'message' => 'Xóa bài viết thành công',
+                        'url_back' => 'index.php?url=admin/blog&action=view',
+                        'btn_title' => 'Quay lại'
+                    ]);
+                case 'edit':
+                    $postDetails = $this->blogModel->getPostDetails($_REQUEST['post_id']);
+                    $listCategories = $this->blogModel->getAllBlogCategories();
+                    return $this->view('admin.blog_edit', [
+                        'postDetails' => $postDetails,
+                        'listCategories' => $listCategories,
+                    ]);
+                case 'update':
+                    if (!empty($_FILES['post_thumbnail']['name'])) {
+                        $this->adminModel->moveFileBlog($_FILES, $_REQUEST['post_id']);
+                    }
+                    $this->blogModel->updatePost($_REQUEST['post_id'], $_REQUEST['post_title'], $_REQUEST['post_content'], $_REQUEST['post_short_desc'], $_REQUEST['post_category'], $_FILES);
+                    return $this->view('base.log', [
+                        'status' => "Success!",
+                        'message' => "Cập nhật bài viết thành công, truy cập trang tin tức để xem bài viết",
+                        'url_back' => 'index.php?url=admin/blog&action=view',
+                        'btn_title' => 'Quay lại'
+                    ]);
+                case 'submit':
+                    if (empty($_FILES['post_thumbnail']['name'])) {
+                        return $this->view('base.log', [
+                            'status' => "Failed!",
+                            'message' => 'Chưa có hình ảnh cho bài viết, vui lòng thêm hình ảnh và thử lại!',
+                            'url_back' => 'index.php?url=admin/blog&action=add',
+                            'btn_title' => 'Quay lại'
+                        ]);
+                    }
+                    $newPost = $this->blogModel->createPost(title: $_REQUEST['post_title'], content: $_REQUEST['post_content'], short_content: $_REQUEST['post_short_desc'], user_id: $_SESSION['user_id'], category_id: $_REQUEST['post_category'], thumbnail_path: $_FILES);
+                    $this->adminModel->moveFileBlog($_FILES, $newPost['post_id']);
+                    return $this->view('base.log', [
+                        'status' => 'Success',
+                        'message' => 'Đăng bài thành công, truy cập trang tin tức để xem bài viết',
+                        'url_back' => 'index.php?url=admin/blog&action=view',
+                        'btn_title' => 'Quay lại trang quản lí bài viết'
+                    ]);
+
+            }
+        }
+    }
+
 
     private function checkPermission()
     {

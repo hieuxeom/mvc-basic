@@ -1,6 +1,6 @@
 <?php
-    // session_start();
-    
+// session_start();
+
 ?>
 <section id="admin-section">
     <div class="admin-select-container">
@@ -15,6 +15,10 @@
         <a href="index.php?url=admin/user&action=view" class="admin-select">
             <i class='bx bxs-package'></i>
             <span>Quản lí thành viên</span>
+        </a>
+        <a href="index.php?url=admin/blog&action=view" class="admin-select">
+            <i class='bx bxs-package'></i>
+            <span>Quản lí bài viết</span>
         </a>
     </div>
 </section>

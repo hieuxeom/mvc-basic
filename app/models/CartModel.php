@@ -5,11 +5,13 @@ class CartModel extends BaseModel
     const ITEM_TABLE = 'cart_items';
     const VOUCHERS_TABLE = 'vouchers';
 
+    const PROD_TABLE = 'products';
+
     public function getCartItems($user_id)
     {
         $cart_id = $this->getCartActive($user_id)['cart_id'];
 
-        $all = $this->getTwoTable(self::ITEM_TABLE, 'product', 'product_id', [
+        $all = $this->getTwoTable(self::ITEM_TABLE, self::PROD_TABLE, 'product_id', [
             'cart_id',
             'product_id',
             'quantity'

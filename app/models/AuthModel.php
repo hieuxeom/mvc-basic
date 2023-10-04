@@ -1,7 +1,7 @@
 <?php
 class AuthModel extends BaseModel
 {
-    const TABLE = 'users';
+    const USER_TABLE = 'users';
 
     public function logout()
     {
@@ -19,7 +19,7 @@ class AuthModel extends BaseModel
         } else if ($checkExistUsername) {
             return 4;
         } else {
-            return $this->insert(SELF::TABLE,[
+            return $this->insert(self::USER_TABLE, [
                 'fullname' => $fullname,
                 'username' => $username,
                 'email' => $email,

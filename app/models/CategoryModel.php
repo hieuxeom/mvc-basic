@@ -1,23 +1,23 @@
 <?php
 class CategoryModel extends BaseModel
 {
-    const TABLE = 'categories';
+    const PROD_CAT_TABLE = 'product_categories';
 
     public function getAllCategories()
     {
-        $value = $this->getAll(self::TABLE);
+        $value = $this->getAll(self::PROD_CAT_TABLE);
         return $value;
     }
 
     public function getCategoryInfo($category_id)
     {
-        $value = $this->getOne(self::TABLE, ['category_id' => $category_id]);
+        $value = $this->getOne(self::PROD_CAT_TABLE, ['category_id' => $category_id]);
         return $value;
     }
 
     public function getCategoryName($category_id)
     {
-        $value = $this->getOne(self::TABLE, ['category_id' => $category_id], ['category_name']);
+        $value = $this->getOne(self::PROD_CAT_TABLE, ['category_id' => $category_id], ['category_name']);
         return $value['category_name'];
     }
 
@@ -38,13 +38,13 @@ class CategoryModel extends BaseModel
 
     public function deleteCategory($category_id)
     {
-        return $this->delete(SELF::TABLE, [
+        return $this->delete(self::PROD_CAT_TABLE, [
             'category_id' => $category_id
         ]);
     }
 
     public function updateCategory($category_id, $category_name) {
-        return $this -> update(SELF::TABLE, [
+        return $this->update(self::PROD_CAT_TABLE, [
             'category_name' => $category_name
         ], [
             'category_id' => $category_id
@@ -53,7 +53,7 @@ class CategoryModel extends BaseModel
 
     private function isExistCategoryName($category_name)
     {
-        $querryProd = $this->getOne('categories', [
+        $querryProd = $this->getOne(self::PROD_CAT_TABLE, [
             'category_name' => $category_name
         ]);
 

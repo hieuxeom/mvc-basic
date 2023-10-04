@@ -1,12 +1,13 @@
 <?php
 class CommentModel extends BaseModel
 {
-    const TABLE = 'product_comments';
+    const PROD_CMT_TABLE = 'product_comments';
     const LIKE_TABLE = 'liked_comments';
+    const USER_TABLE = 'users';
 
     public function createComment($prod_id, $user_id, $comment_text)
     {
-        return $this->insert(self::TABLE, [
+        return $this->insert(self::PROD_CMT_TABLE, [
             'product_id' => $prod_id,
             'user_id' => $user_id,
             'comment_text' => $comment_text
@@ -15,17 +16,17 @@ class CommentModel extends BaseModel
 
     public function getAllComments($prod_id)
     {
-        return $this->getTwoTable(SELF::TABLE, 'users', 'user_id', [
+        return $this->getTwoTable(self::PROD_CMT_TABLE, self::USER_TABLE, 'user_id', [
             'comment_id',
             'product_id',
-            'user_id', 
+            'user_id',
             'comment_text',
             'likes'], [
-                'username',
-                'fullname'
-            ], [
-                'product_id' => $prod_id,
-            ], null, ['created_at' => 'desc'] );
+            'username',
+            'fullname'
+        ], [
+            'product_id' => $prod_id,
+        ], null, ['created_at' => 'desc']);
     }
 
     public function likeComment($comment_id, $user_id, $product_id)
@@ -37,10 +38,10 @@ class CommentModel extends BaseModel
                 'product_id' => $product_id
             ]);
 
-            $this->update(self::TABLE, [
-                'likes' => $this->getOne(self::TABLE, [
-                    'comment_id' => $comment_id,
-                ], ['likes'])['likes'] + 1,
+            $this->update(self::PROD_CMT_TABLE, [
+                'likes' => $this->getOne(self::PROD_CMT_TABLE, [
+                        'comment_id' => $comment_id,
+                    ], ['likes'])['likes'] + 1,
             ], [
                 'comment_id' => $comment_id,
             ]);
@@ -52,10 +53,10 @@ class CommentModel extends BaseModel
                 'product_id' => $product_id
             ]);
 
-            $this->update(self::TABLE, [
-                'likes' => $this->getOne(self::TABLE, [
-                    'comment_id' => $comment_id,
-                ], ['likes'])['likes'] - 1,
+            $this->update(self::PROD_CMT_TABLE, [
+                'likes' => $this->getOne(self::PROD_CMT_TABLE, [
+                        'comment_id' => $comment_id,
+                    ], ['likes'])['likes'] - 1,
             ], [
                 'comment_id' => $comment_id,
             ]);
