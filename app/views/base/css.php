@@ -5,3 +5,4 @@
 <link rel="stylesheet" href="<?php echo BASEPATH ?>/public/css/admin_style.css">
 <link rel="stylesheet" href="<?php echo BASEPATH ?>/public/css/notfound.css">
 <link rel="stylesheet" href="<?php echo BASEPATH ?>/public/css/search_style.css">
+<link rel="stylesheet" href="<?php echo BASEPATH ?>/public/css/blog_style.css">
