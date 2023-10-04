@@ -1,0 +1,123 @@
+.form-section {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem;
+}
+
+.form-section .btn {
+    font-size: 1rem;
+}
+
+.signup-container,
+.login-container {
+    width: 40%;
+    display: flex;
+    gap: 1rem;
+    height: max-content;
+    flex-direction: column;
+    padding: 3rem 4rem;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 12px;
+    border-radius: 0.5rem;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+form .form-row {
+    display: flex;
+    flex-direction: column;
+}
+
+form .form-row label {
+    font-size: 1.25rem;
+}
+
+form .form-row input {
+    font-size: 1.25rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 0.25rem;
+    border: 2px solid var(--second-color);
+    outline: none;
+}
+
+form .form-checkbox {
+    flex-direction: row;
+    gap: 1rem;
+}
+
+form .form-checkbox label {
+    font-size: 1rem;
+}
+@media (max-width: 1058px) {
+    .product-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 90px;
+        width: 100%;
+        gap: 2rem;
+    }
+
+    .product-container .product-image__sub {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, 25%);
+        justify-content: center;
+        gap: 1rem;
+    }
+    .product-info-container .product-desc .product-desc__body {
+        text-align: justify;
+        width: 100%;
+    }
+}
+
+@media (max-width: 991px) {
+    .product-container .product-image-container .product-image {
+        width: 100%;
+    }
+}
+@media (max-width: 768px) {
+    .product-info-container .product-desc .product-desc__body {
+        text-align: justify;
+        width: 100%;
+    }
+}
+@media (max-width: 360px) {
+    header {
+        padding: 11px 4%;
+    }
+    .logo img {
+        width: 45px;
+    }
+    .home-text {
+        padding-top: 15px;
+    }
+    .home-text h1 {
+        font-size: 1.4rem;
+    }
+    .home-text p {
+        font-size: 0.8rem;
+        font-weight: 300;
+    }
+    .about-img {
+        order: 2;
+    }
+    .about-text {
+        text-align: center;
+    }
+    .about-text h2 {
+        font-size: 1.2rem;
+    }
+    .heading h2 {
+        font-size: 1.2rem;
+    }
+}
