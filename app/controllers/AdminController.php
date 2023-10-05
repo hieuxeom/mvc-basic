@@ -58,7 +58,6 @@ class AdminController extends BaseController
                     ]);
 
                 case 'update':
-                    print_r($_REQUEST);
                     $this->productModel->updateProduct($_REQUEST['prod_id'], $_REQUEST['select_category'], $_REQUEST['prod_name'], $_REQUEST['prod_desc'], $_REQUEST['prod_price'], $_REQUEST['prod_stock'], $_FILES);
                     return $this->view('admin.log', [
                         'status' => 'Cập nhật thành công sản phẩm',

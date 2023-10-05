@@ -135,19 +135,19 @@ class BaseModel extends Database
                 $sql .= implode(' AND ', $likeArray);
             }
 
-            // Add LIMIT clause if provided
-            if ($limit != null) {
-                $sql .= " LIMIT $limit";
-            }
-
             // Add ORDER BY clause if provided
-            if ($order != null) {
+            if ($order != null || !empty($order)) {
                 $sql .= " ORDER BY ";
                 $orderArray = [];
                 foreach ($order as $key => $value) {
                     $orderArray[] = "$key $value";
                 }
                 $sql .= implode(', ', $orderArray);
+            }
+
+            // Add LIMIT clause if provided
+            if ($limit != null) {
+                $sql .= " LIMIT $limit";
             }
 
             // Prepare and execute the SQL statement

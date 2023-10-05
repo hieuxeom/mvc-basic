@@ -33,7 +33,6 @@ class AuthController extends BaseController
     }
     public function signup()
     {
-        // print_r($_REQUEST);
         $fullname = $_REQUEST['fullname'];
         $username = $_REQUEST['username'];
         $email = $_REQUEST['email'];
@@ -59,7 +58,6 @@ class AuthController extends BaseController
 
     public function signin()
     {
-        print_r($_REQUEST);
         $username = $_REQUEST['email'];
         $password = $_REQUEST['password'];
 

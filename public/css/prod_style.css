@@ -90,10 +90,11 @@
     font-weight: 700;
 }
 
-.product-info-container .product-desc .product-desc__body {
-    text-align: justify;
-    font-size: 1.25rem;
+.product-info-container .product-desc .product-desc__body p {
+    text-align: justify !important;
+    font-size: 1.25rem !important;
     font-weight: 500;
+    background: transparent !important;;
 }
 
 .comment-container {

@@ -9,9 +9,9 @@ class ProductModel extends BaseModel
         return $value;
     }
 
-    public function getAllProducts($limit)
+    public function getAllProducts($limit, $order = [])
     {
-        $value = $this->getAll(self::PROD_TABLE, $limit);
+        $value = $this->getAll(self::PROD_TABLE, limit: $limit, order: $order);
         return $value;
     }
 
@@ -89,8 +89,7 @@ class ProductModel extends BaseModel
 
     public function updateView($prod_id)
     {
-        // $view = ;
-        // print_r();
+
         return $this->update(self::PROD_TABLE, [
             'views' => $this->getOne(self::PROD_TABLE, [
                     'product_id' => $prod_id

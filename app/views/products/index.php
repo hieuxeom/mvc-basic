@@ -11,7 +11,7 @@ foreach ($list_comments_liked as $item) {
     <div class="product-container">
         <div class="product-image-container">
             <div class="product-image">
-                <img src="<?php echo BASEPATH . '/public/img/' . $thumbnail_path ?>" alt="" />
+                <img src="<?php echo BASEPATH . "/public/img/product/prod_$_GET[id]/" . $thumbnail_path ?>" alt=""/>
             </div>
         </div>
         <div class="product-info-container">
@@ -27,16 +27,16 @@ foreach ($list_comments_liked as $item) {
                 </p>
             </div>
             <form action="index.php?url=cart/add" method="post" class="amount-box">
-                <input type="hidden" name="prod_id" value="<?php echo $_GET['id'] ?>">    
-                <input type="number" name="product_amount" class="product-amount" value="1" min="1" max="100" />
-                <input type="submit" value="Thêm vào giỏ hàng" class="btn" />
+                <input type="hidden" name="prod_id" value="<?php echo $_GET['id'] ?>">
+                <input type="number" name="product_amount" class="product-amount" value="1" min="1" max="100"/>
+                <input type="submit" value="Thêm vào giỏ hàng" class="btn"/>
             </form>
-            
+
             <div class="product-desc">
                 <p class="product-desc__header">Mô tả</p>
-                <p class="product-desc__body">
+                <div class="product-desc__body">
                     <?php echo $product_description ?>
-                </p>
+                </div>
             </div>
         </div>
     </div>

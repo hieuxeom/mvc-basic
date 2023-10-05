@@ -1,5 +1,4 @@
 <?php
-    print_r($category)
 ?>
 
 <section id="admin-section">

@@ -22,7 +22,6 @@ class CartModel extends BaseModel
         ], [
             'cart_id' => $cart_id
         ]);
-        // print_r()
         return $all;
     }
 
@@ -71,7 +70,6 @@ class CartModel extends BaseModel
 
     public function getCartVoucher($user_id)
     {
-        // print_r($this->getCartActive($user_id));
         return $this->getCartActive($user_id)['voucher_code'] ?? null;
 
     }
@@ -110,14 +108,8 @@ class CartModel extends BaseModel
 
     private function isVoucherValid($voucherData)
     {
-        print_r($voucherData);
-        // Assuming $voucherData is an associative array with 'valid_from' and 'valid_to' keys
-        // and that these keys contain date strings in 'YYYY-MM-DD' format.
-
-        // Get the current date
         $currentDate = date('Y-m-d');
 
-        // Compare the current date with the validity period of the voucher
         if ($currentDate >= $voucherData['valid_from'] && $currentDate <= $voucherData['valid_to']) {
             return true; // Voucher is valid
         } else {

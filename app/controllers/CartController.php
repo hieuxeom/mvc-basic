@@ -36,7 +36,6 @@ class CartController extends BaseController
         $action = $_REQUEST['action'];
         switch ($action) {
             case 'add':
-                // print_r($_POST);
                 $this->cartModel->addCartVoucher($_POST['cart_id'], $_POST['voucher_code']);
                 return header("Location: index.php?url=cart");
 

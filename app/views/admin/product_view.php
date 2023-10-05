@@ -1,5 +1,4 @@
 <?php
-    // print_r($list_products);
     $list_category_name = [];
     foreach ($list_categories as $item) {
         if (isset($item['category_name'])) {

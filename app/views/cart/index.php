@@ -1,5 +1,4 @@
 <?php
-// print_r($voucherInfo);
 $summary = 0;
 $discount = 0;
 $ship = 35000;

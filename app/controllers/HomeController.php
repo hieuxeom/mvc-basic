@@ -15,9 +15,8 @@ class HomeController extends BaseController
 
     public function index()
     {
-        $listProduct = $this->productModel->getAllProducts(10);
-        // print_r($listProduct);
-        // die;
+        $listProduct = $this->productModel->getAllProducts(limit: 10, order: ['views' => 'desc']);
+
 
         return $this->view(
             'home.index',

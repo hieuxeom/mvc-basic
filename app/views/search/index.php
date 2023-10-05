@@ -1,5 +1,4 @@
 <?php
-// print_r($products)
     ?>
 <section id="search-section products">
     <div class="search-container">
