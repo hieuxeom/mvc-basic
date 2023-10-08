@@ -2,6 +2,10 @@
 <html lang="en">
 
 <head>
+    <?php
+    require_once "./app/views/base/analytics.php"
+    ?>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -17,6 +21,8 @@
     ?>
     <!-- Box Icons -->
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+
 </head>
 
 <body>

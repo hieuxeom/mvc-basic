@@ -1,3 +1,8 @@
+<?php
+echo "<script>
+    document.title =  '$pageTitle';
+</script>";
+?>
 <section id="admin-section">
     <div class="head">
         <h1>Thêm danh mục mới</h1>
@@ -11,7 +16,7 @@
                 <label for="">Tên danh mục mới</label>
                 <input name="category_name" type="text" class="form-control" />
             </div>
-            
+
             <div class="form-row">
                 <input type="submit" value="Thêm sản phẩm" class="btn">
             </div>

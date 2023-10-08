@@ -7,6 +7,12 @@ foreach ($listCategories as $category) {
         $listCategoriesName[] = $category['category_name'];
     }
 }
+
+
+echo "<script>
+    document.title =  '$pageTitle';
+</script>";
+
 ?>
 <section id="admin-section">
     <div class="head">

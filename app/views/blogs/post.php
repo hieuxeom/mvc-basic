@@ -2,6 +2,13 @@
 
 ?>
 <!-- Post Content -->
+
+<?php
+echo "<script>
+    document.title =  '$pageTitle';
+</script>";
+?>
+
 <section
         style="--background-img: url('<?php echo "../img/blog/post_$postDetails[post_id]/$postDetails[thumbnail_path]" ?>')"
         class="post-header">
@@ -9,7 +16,7 @@
         <!-- Back To Home -->
         <a href="index.php?url=blog" class="btn back-home">Quay lại</a>
         <!-- Title -->
-        <h1 class="header-title">How To Create Best UX Design With Adobe Xd</h1>
+        <h1 class="header-title"><?php echo $postDetails['title'] ?></h1>
         <!-- Post Image -->
         <img src="<?php echo BASEPATH . "/public/img/blog/post_$postDetails[post_id]/$postDetails[thumbnail_path]" ?>"
              alt="" class="header-img">

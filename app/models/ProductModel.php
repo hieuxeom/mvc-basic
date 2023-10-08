@@ -2,6 +2,8 @@
 class ProductModel extends BaseModel
 {
     const PROD_TABLE = 'products';
+    const LIKE_CMT_TABLE = 'liked_comments';
+    const PROD_CMT_TABLE = 'product_comments';
 
     public function getProductInfo($id)
     {
@@ -54,10 +56,23 @@ class ProductModel extends BaseModel
         }
     }
 
-    public function deleteProduct($product_id) {
+    public function deleteProduct($product_id)
+    {
+        // Remove data in liked comment table
+        $this->delete(self::LIKE_CMT_TABLE, [
+            'product_id' => $product_id
+        ]);
+
+        // Remove data in product comment table
+        $this->delete(self::PROD_CMT_TABLE, [
+            'product_id' => $product_id
+        ]);
+
+        // Remove data in product table
         return $this->delete(self::PROD_TABLE, [
             'product_id' => $product_id
         ]);
+
     }
 
     public function updateProduct($prod_id, $category_id, $prod_name, $prod_desc, $prod_price, $prod_stock, $prod_thumbnail) 

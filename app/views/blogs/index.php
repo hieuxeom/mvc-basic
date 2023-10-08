@@ -4,6 +4,12 @@ foreach ($listCategories as $category) {
     $listCategoryName[$category['category_id']] = $category['category_name'];
 }
 ?>
+
+<?php
+echo "<script>
+    document.title =  '$pageTitle';
+</script>";
+?>
 <section id="blog-section">
     <div class="post-filter container">
         <?php
@@ -20,7 +26,7 @@ foreach ($listCategories as $category) {
             echo "<div class='post-box'>
             <img src='" . BASEPATH . "/public/img/blog/post_$post[post_id]/$post[thumbnail_path]' alt='' class='post-img'>
             <h2 class='category'>" . $listCategoryName[$post['category_id']] . "</h2>
-            <a href='post-page.html' class='post-title'>
+            <a href='index.php?url=blog/post&post_id=$post[post_id]' class='post-title'>
                 $post[title]
             </a>
             <span class='post-date'>$post[publish_date]</span>

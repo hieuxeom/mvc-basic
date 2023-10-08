@@ -1,8 +1,14 @@
+<?php
+echo "<script>
+    document.title =  '$pageTitle';
+</script>";
+?>
+
 <section id="admin-section">
     <div class="head">
         <h1>Thêm sản phẩm mới</h1>
         <div class="button-box">
-        <a href="index.php?url=admin/product&action=view" class="btn btn-primary">Quay lại</a>
+            <a href="index.php?url=admin/product&action=view" class="btn btn-primary">Quay lại</a>
         </div>
     </div>
     <main>
@@ -11,7 +17,7 @@
                 <label for="">Danh mục sản phẩm</label>
                 <select name="select_category" id="select-category">
                     <?php
-                    foreach ($list_categories as $item) {
+                    foreach ($listCategories as $item) {
                         echo "<option value='$item[category_id]'>$item[category_name]</option>";
                     }
                     ?>

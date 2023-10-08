@@ -1,6 +1,7 @@
 <?php
-
-
+echo "<script>
+    document.title =  '$pageTitle';
+</script>";
 ?>
 
 <section id="admin-section">

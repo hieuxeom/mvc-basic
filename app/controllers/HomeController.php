@@ -1,5 +1,4 @@
 <?php
-
 class HomeController extends BaseController
 {
     private $productModel;
@@ -7,21 +6,22 @@ class HomeController extends BaseController
 
     public function __construct()
     {
-        $this->loadModel('ProductModel');
+        $this->loadModel("ProductModel");
         $this->productModel = new ProductModel;
-        $this->loadModel('CategoryModel');
+        $this->loadModel("CategoryModel");
         $this->categoryModel = new CategoryModel;
     }
 
     public function index()
     {
-        $listProduct = $this->productModel->getAllProducts(limit: 10, order: ['views' => 'desc']);
+        $listProduct = $this->productModel->getAllProducts(limit: 10, order: ["views" => "desc"]);
 
 
         return $this->view(
-            'home.index',
+            "home.index",
             [
-                'listProduct' => $listProduct
+                "listProduct" => $listProduct,
+                "pageTitle" => "Trang chủ"
             ]
         );
     }

@@ -1,4 +1,7 @@
 <?php
+echo "<script>
+    document.title =  '$pageTitle';
+</script>";
 ?>
 <section id="admin-section">
     <div class="head">
@@ -9,39 +12,41 @@
     </div>
     <main>
         <form action="index.php?url=admin/product&action=update&prod_id=<?php
-        echo $product['product_id']
-            ?>" method="post" enctype="multipart/form-data">
+        echo $productDetails['product_id']
+        ?>" method="post" enctype="multipart/form-data">
             <div class="form-row">
                 <label for="">Danh mục sản phẩm</label>
                 <select name="select_category" id="select-category">
                     <?php
-                    foreach ($list_categories as $item) {
-                        echo "<option value='$item[category_id]'" . ($item['category_id'] == $product['category_id'] ? "selected" : " ") . ">$item[category_name]</option>";
+                    foreach ($listCategories as $item) {
+                        echo "<option value='$item[category_id]'" . ($item['category_id'] == $productDetails['category_id'] ? "selected" : " ") . ">$item[category_name]</option>";
                     }
                     ?>
                 </select>
             </div>
             <div class="form-row">
                 <label for="">Tên sản phẩm</label>
-                <input value="<?php echo $product['product_name'] ?>" name="prod_name" type="text"
+                <input value="<?php echo $productDetails['product_name'] ?>" name="prod_name" type="text"
                        class="form-control"/>
             </div>
             <div class="form-row">
                 <label for="">Mô tả ngắn sản phẩm</label>
-                <textarea id="product_desc" name="prod_desc" class="form-control"></textarea>
+                <textarea id="product_desc" name="prod_desc"
+                          class="form-control"><?php echo $productDetails['product_description'] ?></textarea>
             </div>
             <div class="form-row">
                 <label for="">Giá sản phẩm</label>
-                <input value="<?php echo $product['price'] ?>" name="prod_price" type="text" class="form-control" />
+                <input value="<?php echo $productDetails['price'] ?>" name="prod_price" type="text"
+                       class="form-control"/>
             </div>
             <div class="form-row">
                 <label for="">Số lượng sản phẩm</label>
-                <input value="<?php echo $product['stock_quantity'] ?>" name="prod_stock" type="text"
-                    class="form-control" />
+                <input value="<?php echo $productDetails['stock_quantity'] ?>" name="prod_stock" type="text"
+                       class="form-control"/>
             </div>
             <div class="form-row">
                 <label for="">Hình ảnh sản phẩm</label>
-                <input value="<?php echo $product['thumbnail_path'] ?>" name="prod_thumbnail" type="file"
+                <input value="<?php echo $productDetails['thumbnail_path'] ?>" name="prod_thumbnail" type="file"
                        class="form-control"/>
             </div>
             <div class="form-row">

@@ -3,6 +3,13 @@ $summary = 0;
 $discount = 0;
 $ship = 35000;
 ?>
+
+<?php
+echo "<script>
+    document.title =  '$pageTitle';
+</script>";
+?>
+
 <section id="cart-section">
 
     <main>

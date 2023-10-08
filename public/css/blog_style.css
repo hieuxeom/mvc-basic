@@ -228,19 +228,39 @@
 }
 
 /* Responsive */
+
+@media (max-width: 1200px) {
+    #blog-section {
+        padding: 1.5rem 4rem
+    }
+}
+
 @media (max-width: 1060px) {
     .container {
         margin: 0 auto;
         width: 95%;
     }
+
+    .post {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 380px))
+    }
 }
 
 @media (max-width: 800px) {
+
+    #blog-section {
+        padding: 1.5rem 2rem;
+    }
 
     .post-container {
         margin: 0 auto;
         width: 95%;
     }
+
+    .post {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 280px))
+    }
+
 }
 
 @media (max-width: 768px) {

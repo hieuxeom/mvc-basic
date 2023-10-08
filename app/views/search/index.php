@@ -1,12 +1,15 @@
 <?php
-    ?>
+echo "<script>
+    document.title =  '$pageTitle';
+</script>";
+?>
 <section id="search-section products">
     <div class="search-container">
         <?php
         foreach ($products as $prod) {
             echo "<div class='box'>
-                <a href='#' class='box-wrapper'></a>
-                <img src='" . BASEPATH . "/public/img/$prod[thumbnail_path]" . "' alt='' />
+                <a href='index.php?url=product/show&id=" . $prod['product_id'] . "' class='box-wrapper'></a>
+                <img src='" . BASEPATH . "/public/img/product/prod_$prod[product_id]/$prod[thumbnail_path]" . "' alt='' />
                 <h3>$prod[product_name]</h3>
     
                 <div class='content'>

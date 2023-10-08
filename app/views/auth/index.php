@@ -1,3 +1,9 @@
+<?php
+echo "<script>
+    document.title =  '$pageTitle';
+</script>";
+?>
+
 <section class="form-section" id="form-section">
     <div class="signup-container">
         <h1>Đăng kí</h1>
@@ -22,13 +28,13 @@
             <div class="form-row form-checkbox">
                 <input type="checkbox" name="accept_rules" id="accept_rules" />
                 <label for=""
-                    >Đồng ý với các điều khoản, chính sách của
+                >Đồng ý với các điều khoản, chính sách của
                     <span class="highlight-brand"
-                        >Energy Coffee Shop</span
+                    >Energy Coffee Shop</span
                     ></label
                 >
             </div>
-            
+
             <input type="submit" value="Đăng kí" class="btn" id="reg_btn" disabled/>
         </form>
     </div>

@@ -1,6 +1,12 @@
 <?php
 ?>
 
+<?php
+echo "<script>
+    document.title =  '$pageTitle';
+</script>";
+?>
+
 <section class="home" id="home">
     <div class="home-text">
         <h1>Khởi động ngày mới cùng tách cà phê</h1>
@@ -8,7 +14,7 @@
         <a href="#" class="btn">Xem sản phẩm</a>
     </div>
     <div class="home-img">
-        <img src="<?php echo BASEPATH?>/public/img/main.png" alt="">
+        <img src="<?php echo BASEPATH ?>/public/img/main.png" alt="">
     </div>
 </section>
 <!-- About -->
@@ -38,13 +44,13 @@
             foreach ($listProduct as $item) {
                 echo "<div class='box'>
                 <a href='index.php?url=product/show&id=$item[product_id]' class='box-wrapper'></a>
+                " . ($item['is_best_seller'] ? "<span class='best-seller-tag'>Bán chạy nhất</span>" : '') . "
                 <img src='" . BASEPATH . "/public/img/product/prod_$item[product_id]/$item[thumbnail_path]' alt=''>
                 <h3>$item[product_name]</h3>
                 
                 <div class='content'>
                     <span>". number_format($item['price']) . "đ</span>
                     <span>$item[views] Lượt xem</span>
-                    
                 </div>
             </div>";
             }

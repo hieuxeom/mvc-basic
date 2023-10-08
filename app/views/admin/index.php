@@ -1,7 +1,10 @@
 <?php
-// session_start();
-
+echo "<script>
+    document.title =  '$pageTitle';
+</script>";
 ?>
+
+
 <section id="admin-section">
     <div class="admin-select-container">
         <a href="index.php?url=admin/category&action=view" class="admin-select">

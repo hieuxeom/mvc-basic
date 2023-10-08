@@ -7,8 +7,8 @@ class PostController extends BaseController
 
     public function __construct()
     {
-        $this -> loadModel('PostModel');
-        $this -> postModel = new PostModel;
+        $this->loadModel("PostModel");
+        $this->postModel = new PostModel;
     }
 
     public function index()
@@ -20,9 +20,9 @@ class PostController extends BaseController
     {
         $post_data = $this->postModel->getAllPosts();
 
-        return $this->view('posts.index', [
-            'post_data' => $post_data,
-            'page_title' => "Post data"
+        return $this->view("posts.index", [
+            "post_data" => $post_data,
+            "page_title" => "Post data"
         ]);
     }
 

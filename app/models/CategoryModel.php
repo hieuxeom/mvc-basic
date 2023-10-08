@@ -26,7 +26,7 @@ class CategoryModel extends BaseModel
         $checkExistCategoryName = $this->isExistCategoryName($category_name);
 
         if (!$checkExistCategoryName) {
-            $this->insert('categories', [
+            $this->insert(self::PROD_CAT_TABLE, [
                 'category_name' => $category_name
             ]);
             return 1;

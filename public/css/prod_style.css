@@ -174,7 +174,12 @@
 .comment-block .comment-footer form button.active {
     background: var(--main-color);
     color: white;
+}
 
+.comment-block .comment-footer form button:disabled {
+    cursor: not-allowed;
+    background: white !important;
+    color: var(--main-color) !important;
 }
 
 .comment-block .comment-footer form .comment-time {

@@ -1,4 +1,8 @@
-<section class="form-section" id="form-section">
+<script>
+    document.title = 'Thông báo';
+</script>
+
+<section class="log-section" id="log-section">
     <div id="notfound">
         <div class="notfound">
             <div class="notfound-404">

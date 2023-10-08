@@ -5,16 +5,19 @@ class SearchController extends BaseController
 
     public function __construct()
     {
-        $this->loadModel('SearchModel');
+        $this->loadModel("SearchModel");
         $this->searchModel = new SearchModel;
     }
 
-    public function index() {
-        $keyword = $_REQUEST['keyword'] ?? "";
+    public function index()
+    {
+        $keyword = $_REQUEST["keyword"] ?? "";
         $resultSearch = $this->searchModel->searchKeyword($keyword);
-        return $this->view('search.index', [
-            'products' => $resultSearch
-        ]);
+        $arrayData = [
+            "products" => $resultSearch,
+            "pageTitle" => "Tìm kiếm: $keyword"
+        ];
+        return $this->view("search.index", $arrayData);
     }
 
 
