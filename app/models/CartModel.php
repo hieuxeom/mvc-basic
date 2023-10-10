@@ -84,6 +84,15 @@ class CartModel extends BaseModel
 
     }
 
+    public function removeCartVoucher($cart_id)
+    {
+        return $this->update(self::CART_TABLE, [
+            "voucher_code" => null,
+        ], [
+            "cart_id" => $cart_id
+        ]);
+    }
+
     public function getVoucherInfo($voucher_code)
     {
         return $this->getOne(self::VOUCHERS_TABLE, [
@@ -124,7 +133,8 @@ class CartModel extends BaseModel
         ]);
         return $this->getCartActive($user_id)['cart_id'];
     }
-    private function getCartActive($user_id)
+
+    public function getCartActive($user_id)
     {
         $rs = $this->getOne(self::CART_TABLE, [
             'user_id' => $user_id,
@@ -136,7 +146,6 @@ class CartModel extends BaseModel
         } else {
             return $rs;
         }
-        ;
     }
 }
 

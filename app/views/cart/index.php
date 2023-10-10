@@ -19,22 +19,23 @@ echo "<script>
             </div>
             <table class="list-product">
                 <thead>
-                    <tr>
-                        <th class="prod-thumb">Ảnh</th>
-                        <th class="prod-name">Tên sản phẩm</th>
-                        <th class="prod-price">Đơn giá</th>
-                        <th class="prod-quantity">Số lượng</th>
-                        <th class="prod-total">Tổng tiền</th>
-                        <th class="prod-action"></th>
-                    </tr>
+                <tr>
+                    <th class="prod-thumb">Ảnh</th>
+                    <th class="prod-name">Tên sản phẩm</th>
+                    <th class="prod-price">Đơn giá</th>
+                    <th class="prod-quantity">Số lượng</th>
+                    <th class="prod-total">Tổng tiền</th>
+                    <th class="prod-action"></th>
+                </tr>
                 </thead>
                 <tbody>
-                    <?php
+                <?php
+                if (!empty($cartItems)) {
                     foreach ($cartItems as $cartItem) {
                         echo "
                         <tr>
                         <td class='prod-thumb'>
-                            <img src='" . BASEPATH . "/public/img/$cartItem[thumbnail_path]' alt='' />
+                            <img src='" . BASEPATH . "/public/img/product/prod_$cartItem[product_id]/$cartItem[thumbnail_path]' alt='' />
                         </td>
                         <td class='prod-name'>
                             <p>$cartItem[product_name]</p>
@@ -54,12 +55,11 @@ echo "<script>
                             <input type='submit' class='btn' value='Xóa'>
                             </form>
                         </td>
-                    </tr>
-                        ";
+                    </tr>";
                         $summary += $cartItem['price'] * $cartItem['quantity'];
                     }
-
-                    ?>
+                }
+                ?>
                 </tbody>
             </table>
         </div>
@@ -70,7 +70,7 @@ echo "<script>
             <div class="pre-checkout-panel">
                 <form action="index.php?url=cart/voucher&action=add" method="post">
                     <label for="promo_code">Mã khuyến mãi</label>
-                    <input type="hidden" name="cart_id" value="<?php echo $cartItem['cart_id'] ?>">
+                    <input type="hidden" name="cart_id" value="<?php echo $cartDetails['cart_id'] ?>">
                     <input type="text" name="voucher_code" id="promo-code" value="<?php echo $cartVoucher ?>">
                     <input type="submit" class='btn' value="Áp dụng">
                 </form>
@@ -87,7 +87,7 @@ echo "<script>
                             <td>Giảm giá</td>
                             <td class="cost">
                                 <?php
-                                if ($voucherInfo['type'] == 'product') {
+                                if (!empty($voucherInfo) && $voucherInfo['type'] == 'product') {
                                     $discount = -($summary * $voucherInfo['discount'] / 100);
                                     echo "<span discount='$voucherInfo[discount]' cost='" . round($discount) . "' class='dc-cost' id='discount'>" . number_format($discount) . "đ</span>";
                                 } else {
@@ -100,7 +100,7 @@ echo "<script>
                             <td>Phí vận chuyển</td>
                             <td class="cost">
                                 <?php
-                                if ($voucherInfo['type'] == 'ship') {
+                                if (!empty($voucherInfo) && $voucherInfo['type'] == 'ship') {
                                     $ship = ($ship - $ship * $voucherInfo['discount'] / 100);
                                     echo "<span cost='" . round($ship) . "' class='dc-cost' id='ship'>" . $ship . "đ</span>";
                                 } else {
@@ -115,7 +115,7 @@ echo "<script>
                             <td>
                                 <?php
                                 echo "<span id='total-checkout'>" . number_format($summary + $discount + $ship) . "đ</span>"
-                                    ?>
+                                ?>
                             </td>
                         </tr>
                     </table>

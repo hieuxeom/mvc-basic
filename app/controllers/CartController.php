@@ -15,11 +15,13 @@ class CartController extends BaseController
             $cartVoucher = $this->cartModel->getCartVoucher($_SESSION["user_id"]);
             $voucherInfo = $this->cartModel->getVoucherInfo($cartVoucher);
             $cartItems = $this->cartModel->getCartItems($_SESSION["user_id"]);
-
+            print_r($cartItems);
+            $cartDetails = $this->cartModel->getCartActive($_SESSION["user_id"]);
             $arrayData = [
                 "cartVoucher" => $cartVoucher,
                 "voucherInfo" => $voucherInfo,
                 "cartItems" => $cartItems,
+                "cartDetails" => $cartDetails,
                 "pageTitle" => "Giỏ hàng"
             ];
             return $this->view("cart.index", $arrayData);
@@ -38,9 +40,15 @@ class CartController extends BaseController
     public function voucher()
     {
         $action = $_REQUEST["action"];
+        if ($_POST["voucher_code"] == "") {
+            $action = "delete";
+        }
         switch ($action) {
             case "add":
                 $this->cartModel->addCartVoucher($_POST["cart_id"], $_POST["voucher_code"]);
+                return header("Location: index.php?url=cart");
+            case "delete":
+                $this->cartModel->removeCartVoucher($_POST["cart_id"]);
                 return header("Location: index.php?url=cart");
         }
     }
@@ -53,7 +61,6 @@ class CartController extends BaseController
         } else {
             $arrayData = [
                 "status" => "Error!",
-                "status_code" => "",
                 "message" => "Đăng nhập để thêm sản phẩm vào giỏ hàng",
                 "url_back" => "index.php?url=auth",
                 "btn_title" => "Đăng nhập",
