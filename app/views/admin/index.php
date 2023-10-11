@@ -17,11 +17,15 @@ echo "<script>
         </a>
         <a href="index.php?url=admin/user&action=view" class="admin-select">
             <i class='bx bxs-package'></i>
-            <span>Quản lí thành viên</span>
+            <span>Quản lí khách hàng</span>
         </a>
         <a href="index.php?url=admin/blog&action=view" class="admin-select">
             <i class='bx bxs-package'></i>
-            <span>Quản lí bài viết</span>
+            <span>Quản lí danh mục tin tức</span>
+        </a>
+        <a href="index.php?url=admin/blog&action=view" class="admin-select">
+            <i class='bx bxs-package'></i>
+            <span>Quản lí tin tức</span>
         </a>
     </div>
 </section>
