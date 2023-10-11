@@ -48,6 +48,8 @@
         if (isset($_SESSION['permission'])) {
             if ($_SESSION['permission'] == 'admin') {
                 echo "<a href='index.php?url=admin'><i class='bx bxs-user'></i></a>";
+            } else {
+                echo "<a href='index.php?url=profile'><i class='bx bxs-user'></i></a>";
             }
         }
 
