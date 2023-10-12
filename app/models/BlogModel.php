@@ -26,9 +26,21 @@ class BlogModel extends BaseModel
 
     public function getAllPostOfCategory($category_id, $order = ['publish_date' => 'asc'])
     {
-        return $this->getAll(table: self::POST_TABLE, conditions: [
-            'category_id' => $category_id
-        ], order: $order);
+        return $this->getTwoTable(table1: self::POST_TABLE, table2: self::USER_TABLE, joinColumn: 'user_id',
+            table1Select: [
+                'post_id',
+                'title',
+                'content',
+                'short_content',
+                'publish_date',
+                'thumbnail_path',
+                'category_id',
+            ], table2Select: [
+                'username',
+                'fullname'
+            ], order: $order, conditions: [
+                'category_id' => $category_id,
+            ]);
     }
 
     public function getAllBlogCategories()

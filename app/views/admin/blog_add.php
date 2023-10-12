@@ -34,7 +34,7 @@ echo "<script>
             <div class="form-row">
                 <label for="">Nội dung bài viết</label>
                 <textarea name="post_content" id="post_content"
-                          class="form-control bg-light"><?= $_POST['Content'] ?? "" ?></textarea>
+                          class="form-control bg-light"></textarea>
             </div>
             <div class="form-row">
                 <label for="">Hình ảnh bài viết</label>

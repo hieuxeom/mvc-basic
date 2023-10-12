@@ -13,7 +13,12 @@ class BlogController extends BaseController
     public function index()
     {
         $listBlogCategories = $this->blogModel->getAllBlogCategories();
-        $listPost = $this->blogModel->getAllPost(["publish_date" => "desc"]);
+        if (isset($_REQUEST['filter'])) {
+            $listPost = $this->blogModel->getAllPostOfCategory($_REQUEST['filter']);
+        } else {
+
+            $listPost = $this->blogModel->getAllPost(["publish_date" => "desc"]);
+        }
 
         $arrayData = [
             "listCategories" => $listBlogCategories,

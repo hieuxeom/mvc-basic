@@ -23,7 +23,7 @@
     box-sizing: border-box;
     scroll-padding-top: 4rem;
     scroll-behavior: smooth;
-    list-style: none;
+    /*list-style: none;*/
     text-decoration: none;
     font-weight: 500;
 }
@@ -130,6 +130,10 @@ h1, h2 {
 
 .navbar {
     display: flex;
+}
+
+.navbar li {
+    list-style: none;
 }
 
 .navbar a {
@@ -307,6 +311,18 @@ form .form-checkbox label {
     margin-bottom: 10px;
 }
 
+.footer-box {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    height: 100%;
+}
+
+.footer-box li {
+    list-style: none;
+    margin-bottom: .25rem;
+}
+
 .footer-box li a {
     color: var(--text-color);
 }
@@ -346,5 +362,11 @@ form .form-checkbox label {
 @media (max-width: 520px) {
     .contact span {
         justify-content: center;
+    }
+}
+
+@media (max-width: 450px) {
+    .footer-box {
+        align-items: center;
     }
 }

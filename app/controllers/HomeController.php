@@ -2,14 +2,14 @@
 class HomeController extends BaseController
 {
     private $productModel;
-    private $categoryModel;
+    private $productCategoryModel;
 
     public function __construct()
     {
         $this->loadModel("ProductModel");
         $this->productModel = new ProductModel;
-        $this->loadModel("CategoryModel");
-        $this->categoryModel = new CategoryModel;
+        $this->loadModel("ProductCategoryModel");
+        $this->productCategoryModel = new ProductCategoryModel;
     }
 
     public function index()

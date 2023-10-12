@@ -4,7 +4,7 @@ class ProductController extends BaseController
 {
 
     private $productModel;
-    private $categoryModel;
+    private $productCategoryModel;
 
     private $commentModel;
 
@@ -12,8 +12,8 @@ class ProductController extends BaseController
     {
         $this->loadModel("ProductModel");
         $this->productModel = new ProductModel;
-        $this->loadModel("CategoryModel");
-        $this->categoryModel = new CategoryModel;
+        $this->loadModel("ProductCategoryModel");
+        $this->productCategoryModel = new ProductCategoryModel;
         $this->loadModel("CommentModel");
         $this->commentModel = new CommentModel;
     }
@@ -36,7 +36,7 @@ class ProductController extends BaseController
         // update view
         $this->productModel->updateView($product_id);
 
-        $category_name = $this->categoryModel->getCategoryName($category);
+        $category_name = $this->productCategoryModel->getCategoryName($category);
 
         $list_comments = $this->commentModel->getAllComments($product_id);
 

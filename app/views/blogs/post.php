@@ -18,8 +18,9 @@ echo "<script>
         <!-- Title -->
         <h1 class="header-title"><?php echo $postDetails['title'] ?></h1>
         <!-- Post Image -->
-        <img src="<?php echo BASEPATH . "/public/img/blog/post_$postDetails[post_id]/$postDetails[thumbnail_path]" ?>"
-             alt="" class="header-img">
+        <!--        <img src="-->
+        <?php //echo BASEPATH . "/public/img/blog/post_$postDetails[post_id]/$postDetails[thumbnail_path]" ?><!--"-->
+        <!--             alt="" class="header-img">-->
     </div>
 </section>
 <!-- Posts -->

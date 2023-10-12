@@ -8,3 +8,4 @@
 <link rel="stylesheet" href="<?php echo BASEPATH ?>/public/css/search_style.css">
 <link rel="stylesheet" href="<?php echo BASEPATH ?>/public/css/blog_style.css">
 <link rel="stylesheet" href="<?php echo BASEPATH ?>/public/css/profile_style.css">
+<link rel="stylesheet" href="<?php echo BASEPATH ?>/public/css/content-styles.css">

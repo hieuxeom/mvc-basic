@@ -4,8 +4,10 @@ class AdminController extends BaseController
 {
     private $adminModel;
     private $productModel;
-    private $categoryModel;
+    private $productCategoryModel;
     private $blogModel;
+
+    private $blogCategoryModel;
 
     public function __construct()
     {
@@ -13,8 +15,10 @@ class AdminController extends BaseController
         $this->adminModel = new AdminModel;
         $this->loadModel("ProductModel");
         $this->productModel = new ProductModel;
-        $this->loadModel("CategoryModel");
-        $this->categoryModel = new CategoryModel;
+        $this->loadModel("ProductCategoryModel");
+        $this->productCategoryModel = new ProductCategoryModel;
+        $this->loadModel("BlogCategoryModel");
+        $this->blogCategoryModel = new BlogCategoryModel;
         $this->loadModel("BlogModel");
         $this->blogModel = new BlogModel;
     }
@@ -42,7 +46,7 @@ class AdminController extends BaseController
             switch ($action) {
                 case "view":
                     $listProduct = $this->productModel->getAllProducts(null);
-                    $listCategories = $this->categoryModel->getAllCategories();
+                    $listCategories = $this->productCategoryModel->getAllCategories();
                     $arrayData = [
                         "listProducts" => $listProduct,
                         "listCategories" => $listCategories,
@@ -50,7 +54,7 @@ class AdminController extends BaseController
                     ];
                     return $this->view("admin.product_view", $arrayData);
                 case "add":
-                    $listCategories = $this->categoryModel->getAllCategories();
+                    $listCategories = $this->productCategoryModel->getAllCategories();
                     $arrayData = [
                         "listCategories" => $listCategories,
                         "pageTitle" => "Thêm sản phẩm mới"
@@ -70,7 +74,7 @@ class AdminController extends BaseController
 
                 case "edit":
                     $productDetails = $this->productModel->getProductInfo($_REQUEST["product_id"]);
-                    $listCategories = $this->categoryModel->getAllCategories();
+                    $listCategories = $this->productCategoryModel->getAllCategories();
                     $arrayData = [
                         "productDetails" => $productDetails,
                         "listCategories" => $listCategories,
@@ -128,7 +132,7 @@ class AdminController extends BaseController
         return $this->blockView();
     }
 
-    public function category()
+    public function prodcat()
     {
         $arrayData = [];
         if ($this->checkPermission()) {
@@ -136,7 +140,7 @@ class AdminController extends BaseController
             switch ($action) {
                 case "view":
                     $arrayData = [
-                        "listCategories" => $this->categoryModel->getAllCategories(),
+                        "listCategories" => $this->productCategoryModel->getAllCategories(),
                         "pageTile" => "Danh sách danh mục sản phẩm"
                     ];
 
@@ -147,18 +151,18 @@ class AdminController extends BaseController
                     ];
                     return $this->view("admin.category_add", $arrayData);
                 case "delete":
-                    $checkDelete = $this->categoryModel->deleteCategory($_REQUEST["category_id"]);
+                    $checkDelete = $this->productCategoryModel->deleteCategory($_REQUEST["category_id"]);
 
                     $arrayData = [
                         "status" => "Success!",
                         "message" => "Xóa thành công danh mục",
-                        "url_back" => "index.php?url=admin/category&action=view",
+                        "url_back" => "index.php?url=admin/prodcat&action=view",
                         "btn_title" => "Quay lại"
                     ];
                     return $this->view("base.log", $arrayData);
 
                 case "edit":
-                    $categoryDetails = $this->categoryModel->getCategoryInfo($_REQUEST["category_id"]);
+                    $categoryDetails = $this->productCategoryModel->getCategoryInfo($_REQUEST["category_id"]);
 
                     $arrayData = [
                         "category" => $categoryDetails,
@@ -168,23 +172,23 @@ class AdminController extends BaseController
                     return $this->view("admin.category_edit", $arrayData);
 
                 case "update":
-                    $checkUpdate = $this->categoryModel->updateCategory($_REQUEST["cat_id"], $_REQUEST["category_name"]);
+                    $checkUpdate = $this->productCategoryModel->updateCategory($_REQUEST["cat_id"], $_REQUEST["category_name"]);
                     $arrayData = [
                         "status" => "Success!",
                         "message" => "Cập nhật thành công tên danh mục mới",
-                        "url_back" => "index.php?url=admin/category&action=view",
+                        "url_back" => "index.php?url=admin/prodcat&action=view",
                         "btn_title" => "Quay lại"
                     ];
 
                     return $this->view("base.log", $arrayData);
                 case "submit":
-                    $checkInsert = $this->categoryModel->addCategory($_REQUEST["category_name"]);
+                    $checkInsert = $this->productCategoryModel->addCategory($_REQUEST["category_name"]);
                     print_r($checkInsert);
                     if ($checkInsert == 1) {
                         $arrayData = [
                             "status" => "Success!",
                             "message" => "Thêm thành công danh mục",
-                            "url_back" => "index.php?url=admin/category&action=view",
+                            "url_back" => "index.php?url=admin/prodcat&action=view",
                             "btn_title" => "Quay lại"
                         ];
                         return $this->view("base.log", $arrayData);
@@ -192,7 +196,7 @@ class AdminController extends BaseController
                         $arrayData = [
                             "status" => "Failed!",
                             "message" => "Đã có danh mục $_REQUEST[category_name], vui lòng thử tên danh mục khác!",
-                            "url_back" => "index.php?url=admin/category&action=add",
+                            "url_back" => "index.php?url=admin/prodcat&action=add",
                             "btn_title" => "Quay lại"
                         ];
                         return $this->view("base.log", $arrayData);
@@ -280,6 +284,80 @@ class AdminController extends BaseController
                     ];
                     return $this->view("base.log", $arrayData);
 
+            }
+        } else {
+            return $this->blockView();
+        }
+        return $this->blockView();
+    }
+
+    public function postcat()
+    {
+        $arrayData = [];
+        if ($this->checkPermission()) {
+            $action = $_REQUEST["action"];
+            switch ($action) {
+                case "view":
+                    $arrayData = [
+                        "listCategories" => $this->blogCategoryModel->getAllCategories(),
+                        "pageTile" => "Danh sách danh mục sản phẩm"
+                    ];
+                    return $this->view("admin.post_category_view", $arrayData);
+                case "add":
+                    $arrayData = [
+                        "pageTitle" => "Thêm danh mục mới"
+                    ];
+                    return $this->view("admin.post_category_add", $arrayData);
+                case "delete":
+                    $checkDelete = $this->blogCategoryModel->deleteCategory($_REQUEST["category_id"]);
+                    $arrayData = [
+                        "status" => "Success!",
+                        "message" => "Xóa thành công danh mục",
+                        "url_back" => "index.php?url=admin/postcat&action=view",
+                        "btn_title" => "Quay lại"
+                    ];
+                    return $this->view("base.log", $arrayData);
+
+                case "edit":
+                    $categoryDetails = $this->blogCategoryModel->getCategoryInfo($_REQUEST["category_id"]);
+
+                    $arrayData = [
+                        "category" => $categoryDetails,
+                        "pageTitle" => "Sửa danh mục - $categoryDetails[category_name]",
+                    ];
+
+                    return $this->view("admin.post_category_edit", $arrayData);
+
+                case "update":
+                    $checkUpdate = $this->blogCategoryModel->updateCategory($_REQUEST["cat_id"], $_REQUEST["category_name"]);
+                    $arrayData = [
+                        "status" => "Success!",
+                        "message" => "Cập nhật thành công tên danh mục mới",
+                        "url_back" => "index.php?url=admin/postcat&action=view",
+                        "btn_title" => "Quay lại"
+                    ];
+
+                    return $this->view("base.log", $arrayData);
+                case "submit":
+                    $checkInsert = $this->blogCategoryModel->addCategory($_REQUEST["category_name"]);
+                    print_r($checkInsert);
+                    if ($checkInsert == 1) {
+                        $arrayData = [
+                            "status" => "Success!",
+                            "message" => "Thêm thành công danh mục",
+                            "url_back" => "index.php?url=admin/postcat&action=view",
+                            "btn_title" => "Quay lại"
+                        ];
+                        return $this->view("base.log", $arrayData);
+                    } else {
+                        $arrayData = [
+                            "status" => "Failed!",
+                            "message" => "Đã có danh mục $_REQUEST[category_name], vui lòng thử tên danh mục khác!",
+                            "url_back" => "index.php?url=admin/postcat&action=add",
+                            "btn_title" => "Quay lại"
+                        ];
+                        return $this->view("base.log", $arrayData);
+                    }
             }
         } else {
             return $this->blockView();
