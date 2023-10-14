@@ -41,7 +41,7 @@ echo "<script>
                 <input name="post_thumbnail" type="file" class="form-control"/>
             </div>
             <div class="form-row">
-                <input type="submit" value="Thêm sản phẩm" class="btn">
+                <input type="submit" value="Thêm bài viết" class="btn">
             </div>
         </form>
     </main>

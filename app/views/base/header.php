@@ -35,7 +35,7 @@
     <ul class="navbar">
         <li><a href="index.php?url=home">Trang chủ</a></li>
         <li><a href="index.php?url=home">Giới thiệu</a></li>
-        <li><a href="index.php?url=home">Sản phẩm</a></li>
+        <li><a href="index.php?url=product">Sản phẩm</a></li>
         <li><a href="index.php?url=blog">Tin tức</a></li>
     </ul>
     <!-- Icon -->

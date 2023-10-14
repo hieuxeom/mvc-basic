@@ -1,4 +1,5 @@
 <?php
+
 class ProductModel extends BaseModel
 {
     const PROD_TABLE = 'products';
@@ -11,9 +12,18 @@ class ProductModel extends BaseModel
         return $value;
     }
 
-    public function getAllProducts($limit, $order = [])
+    public function getAllProducts($limit = null, $order = [])
     {
         $value = $this->getAll(self::PROD_TABLE, limit: $limit, order: $order);
+        return $value;
+    }
+
+    public function getAllProductsOfCategory($category_id, $limit = null, $order = [])
+    {
+
+        $value = $this->getAll(self::PROD_TABLE, limit: $limit, order: $order, conditions: [
+            "category_id" => $category_id,
+        ]);
         return $value;
     }
 
@@ -75,7 +85,7 @@ class ProductModel extends BaseModel
 
     }
 
-    public function updateProduct($prod_id, $category_id, $prod_name, $prod_desc, $prod_price, $prod_stock, $prod_thumbnail) 
+    public function updateProduct($prod_id, $category_id, $prod_name, $prod_desc, $prod_price, $prod_stock, $prod_thumbnail)
     {
         if (empty($prod_thumbnail['prod_thumbnail']['name'])) {
             return $this->update(self::PROD_TABLE, [
@@ -99,7 +109,7 @@ class ProductModel extends BaseModel
                 'product_id' => $prod_id,
             ]);
         }
-        
+
     }
 
     public function updateView($prod_id)
@@ -140,4 +150,5 @@ class ProductModel extends BaseModel
         }
     }
 }
+
 ?>

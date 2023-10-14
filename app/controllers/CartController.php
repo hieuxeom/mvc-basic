@@ -78,7 +78,6 @@ class CartController extends BaseController
     public function update()
     {
         $POST_DATA = json_decode(file_get_contents("php://input"), true);
-
         $this->cartModel->updateQuantity($POST_DATA["cart_id"], $POST_DATA["prod_id"], $POST_DATA["quantity"]);;
     }
 }

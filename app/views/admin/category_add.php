@@ -18,7 +18,7 @@ echo "<script>
             </div>
 
             <div class="form-row">
-                <input type="submit" value="Thêm sản phẩm" class="btn">
+                <input type="submit" value="Thêm danh mục" class="btn">
             </div>
         </form>
     </main>

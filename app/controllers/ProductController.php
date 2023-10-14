@@ -20,7 +20,30 @@ class ProductController extends BaseController
 
     public function index()
     {
-        return $this->view("product.index");
+        $listProducts = $this->productModel->getAllProducts();
+        $listCategories = $this->productCategoryModel->getAllCategories();
+        return $this->view("products.product", [
+            "listProducts" => $listProducts,
+            "listCategories" => $listCategories,
+            "pageTitle" => "Trang sản phẩm",
+        ]);
+    }
+
+    public function category()
+    {
+        $filter = isset($_REQUEST['filter']) ? $_REQUEST['filter'] : "0";
+        if ($filter != "0") {
+            $listProducts = $this->productModel->getAllProductsOfCategory($filter);
+        } else {
+            $listProducts = $this->productModel->getAllProducts();
+        }
+
+        $listCategories = $this->productCategoryModel->getAllCategories();
+        return $this->view("products.product", [
+            "listProducts" => $listProducts,
+            "listCategories" => $listCategories,
+            "pageTitle" => "Trang sản phẩm",
+        ]);
     }
 
     public function show()
@@ -56,11 +79,6 @@ class ProductController extends BaseController
         }
 
         return $this->view("products.index", $arrayData);
-    }
-
-    public function create()
-    {
-        echo __METHOD__;
     }
 
 }

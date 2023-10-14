@@ -6,7 +6,7 @@ echo "<script>
 
 <section id="admin-section">
     <div class="head">
-        <h1>Quản lí sản phẩm</h1>
+        <h1>Quản lí danh mục tin tức</h1>
         <div class="button-box">
             <a href="index.php?url=admin/postcat&action=add" class="btn btn-primary">Thêm danh mục mới</a>
         </div>

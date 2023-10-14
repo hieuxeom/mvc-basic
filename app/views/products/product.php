@@ -31,7 +31,7 @@ echo "<script>
                 ";
             }
         } else {
-            echo "<h3>Không tìm thấy sản phẩm nào!</h3>";
+            echo "<h3>Không có sản phẩm thuộc danh mục này</h3>";
         }
         ?>
     </div>
