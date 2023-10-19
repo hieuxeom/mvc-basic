@@ -5,7 +5,6 @@ let email = document.querySelector("#reg_email");
 let password = document.querySelector('#reg_password');
 let registerButton = document.querySelector('#reg_btn');
 
-checkAll
 
 acceptButton.addEventListener("click", () => {
 	checkAll();

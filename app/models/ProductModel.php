@@ -1,23 +1,35 @@
 <?php
+
 class ProductModel extends BaseModel
 {
-    const TABLE = 'product';
+    const PROD_TABLE = 'products';
+    const LIKE_CMT_TABLE = 'liked_comments';
+    const PROD_CMT_TABLE = 'product_comments';
 
     public function getProductInfo($id)
     {
-        $value = $this->getOne(self::TABLE, ['product_id' => $id]);
+        $value = $this->getOne(self::PROD_TABLE, ['product_id' => $id]);
         return $value;
     }
 
-    public function getAllProducts($limit)
+    public function getAllProducts($limit = null, $order = [])
     {
-        $value = $this->getAll(self::TABLE, $limit);
+        $value = $this->getAll(self::PROD_TABLE, limit: $limit, order: $order);
+        return $value;
+    }
+
+    public function getAllProductsOfCategory($category_id, $limit = null, $order = [])
+    {
+
+        $value = $this->getAll(self::PROD_TABLE, limit: $limit, order: $order, conditions: [
+            "category_id" => $category_id,
+        ]);
         return $value;
     }
 
     public function getIdProduct($prod_name, $category_id)
     {
-        $querryProd = $this->getOne('product', [
+        $querryProd = $this->getOne(self::PROD_TABLE, [
             'product_name' => $prod_name,
             'category_id' => $category_id
         ]);
@@ -37,7 +49,7 @@ class ProductModel extends BaseModel
             $validStock = $this->convertToIntegerAndCheck($prod_stock);
 
             if ($validPrice && $validStock) {
-                $this->insert(SELF::TABLE, [
+                $this->insert(self::PROD_TABLE, [
                     'category_id' => $category_id,
                     'product_name' => $prod_name,
                     'product_description' => $prod_desc,
@@ -54,16 +66,29 @@ class ProductModel extends BaseModel
         }
     }
 
-    public function deleteProduct($product_id) {
-        return $this->delete(SELF::TABLE, [
+    public function deleteProduct($product_id)
+    {
+        // Remove data in liked comment table
+        $this->delete(self::LIKE_CMT_TABLE, [
             'product_id' => $product_id
         ]);
+
+        // Remove data in product comment table
+        $this->delete(self::PROD_CMT_TABLE, [
+            'product_id' => $product_id
+        ]);
+
+        // Remove data in product table
+        return $this->delete(self::PROD_TABLE, [
+            'product_id' => $product_id
+        ]);
+
     }
 
-    public function updateProduct($prod_id, $category_id, $prod_name, $prod_desc, $prod_price, $prod_stock, $prod_thumbnail) 
+    public function updateProduct($prod_id, $category_id, $prod_name, $prod_desc, $prod_price, $prod_stock, $prod_thumbnail)
     {
         if (empty($prod_thumbnail['prod_thumbnail']['name'])) {
-            return $this->update(SELF::TABLE, [
+            return $this->update(self::PROD_TABLE, [
                 'category_id' => $category_id,
                 'product_name' => $prod_name,
                 'product_description' => $prod_desc,
@@ -73,7 +98,7 @@ class ProductModel extends BaseModel
                 'product_id' => $prod_id,
             ]);
         } else {
-            return $this->update(SELF::TABLE, [
+            return $this->update(self::PROD_TABLE, [
                 'category_id' => $category_id,
                 'product_name' => $prod_name,
                 'product_description' => $prod_desc,
@@ -84,17 +109,16 @@ class ProductModel extends BaseModel
                 'product_id' => $prod_id,
             ]);
         }
-        
+
     }
 
     public function updateView($prod_id)
     {
-        // $view = ;
-    // print_r();
-        return $this->update(SELF::TABLE, [
-            'views' => $this->getOne(SELF::TABLE, [
-                'product_id' => $prod_id
-        ], ['views'])['views'] + 1
+
+        return $this->update(self::PROD_TABLE, [
+            'views' => $this->getOne(self::PROD_TABLE, [
+                    'product_id' => $prod_id
+                ], ['views'])['views'] + 1
         ], [
             'product_id' => $prod_id,
         ]);
@@ -102,7 +126,7 @@ class ProductModel extends BaseModel
 
     private function isExistProductName($prod_name, $category_id)
     {
-        $querryProd = $this->getOne('product', [
+        $querryProd = $this->getOne(self::PROD_TABLE, [
             'product_name' => $prod_name,
             'category_id' => $category_id
         ]);
@@ -126,4 +150,5 @@ class ProductModel extends BaseModel
         }
     }
 }
+
 ?>

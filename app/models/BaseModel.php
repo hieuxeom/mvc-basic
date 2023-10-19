@@ -52,63 +52,13 @@ class BaseModel extends Database
         }
     }
 
-
-    // private function _query($table, $arraySelect = ['*'], $conditions = [], $limit = null, $order = null)
-    // {
-    //     try {
-    //         $column = implode(', ', $arraySelect);
-
-    //         $sql = "SELECT $column FROM $table";
-
-    //         // Check if conditions are provided and build the WHERE clause
-    //         if (!empty($conditions)) {
-    //             $sql .= " WHERE ";
-    //             $conditionsArray = [];
-    //             foreach ($conditions as $column => $value) {
-    //                 $conditionsArray[] = "$column = :$column";
-    //             }
-    //             $sql .= implode(' AND ', $conditionsArray);
-    //         }
-
-    //         if ($limit != null) {
-    //             $sql .= " LIMIT $limit";
-    //         }
-
-    //         if ($order != null) {
-    //             $sql .= " ORDER BY ";
-    //             foreach ($order as $key => $value) {
-    //                 $sql .= " $key $value";
-    //             }
-    //         }
-
-
-    //         $stmt = $this->conn->prepare($sql);
-
-    //         // Bind parameters if conditions are provided
-    //         if (!empty($conditions)) {
-    //             foreach ($conditions as $column => $value) {
-    //                 $stmt->bindValue(":$column", $value);
-    //             }
-    //         }
-
-    //         $stmt->execute();
-
-    //         // Return the result as an associative array
-    //         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    //     } catch (PDOException $e) {
-    //         // Handle any exceptions (e.g., database errors)
-    //         echo "Error: " . $e->getMessage();
-    //         return [];
-    //     }
-    // }
-
     private function _query($table, $arraySelect = ['*'], $conditions = [], $limit = null, $order = null, $likeConditions = [])
     {
         try {
             // Prepare the list of columns to select
             $column = implode(', ', $arraySelect);
 
-            // Initialize the SQL query
+            // SQL Start
             $sql = "SELECT $column FROM $table";
 
             // Check if conditions are provided and build the WHERE clause
@@ -135,19 +85,19 @@ class BaseModel extends Database
                 $sql .= implode(' AND ', $likeArray);
             }
 
-            // Add LIMIT clause if provided
-            if ($limit != null) {
-                $sql .= " LIMIT $limit";
-            }
-
             // Add ORDER BY clause if provided
-            if ($order != null) {
+            if ($order != null || !empty($order)) {
                 $sql .= " ORDER BY ";
                 $orderArray = [];
                 foreach ($order as $key => $value) {
                     $orderArray[] = "$key $value";
                 }
                 $sql .= implode(', ', $orderArray);
+            }
+
+            // Add LIMIT clause if provided
+            if ($limit != null) {
+                $sql .= " LIMIT $limit";
             }
 
             // Prepare and execute the SQL statement
@@ -167,14 +117,14 @@ class BaseModel extends Database
                 }
             }
 
+            // Execute
             $stmt->execute();
 
             // Return the result as an associative array
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            // Handle any exceptions (e.g., database errors)
-            echo "Error: " . $e->getMessage();
-            return [];
+            // Return false if query Error;
+            return false;
         }
     }
 
@@ -216,7 +166,7 @@ class BaseModel extends Database
         } catch (PDOException $e) {
             // Handle any exceptions (e.g., database errors)
             echo "Error: " . $e->getMessage();
-            return [];
+            return false;
         }
     }
 

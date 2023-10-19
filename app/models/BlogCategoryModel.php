@@ -1,23 +1,24 @@
 <?php
-class CategoryModel extends BaseModel
+
+class BlogCategoryModel extends BaseModel
 {
-    const TABLE = 'categories';
+    const POST_CAT_TABLE = 'post_categories';
 
     public function getAllCategories()
     {
-        $value = $this->getAll(self::TABLE);
+        $value = $this->getAll(self::POST_CAT_TABLE);
         return $value;
     }
 
     public function getCategoryInfo($category_id)
     {
-        $value = $this->getOne(self::TABLE, ['category_id' => $category_id]);
+        $value = $this->getOne(self::POST_CAT_TABLE, ['category_id' => $category_id]);
         return $value;
     }
 
     public function getCategoryName($category_id)
     {
-        $value = $this->getOne(self::TABLE, ['category_id' => $category_id], ['category_name']);
+        $value = $this->getOne(self::POST_CAT_TABLE, ['category_id' => $category_id], ['category_name']);
         return $value['category_name'];
     }
 
@@ -26,7 +27,7 @@ class CategoryModel extends BaseModel
         $checkExistCategoryName = $this->isExistCategoryName($category_name);
 
         if (!$checkExistCategoryName) {
-            $this->insert('categories', [
+            $this->insert(self::POST_CAT_TABLE, [
                 'category_name' => $category_name
             ]);
             return 1;
@@ -38,13 +39,14 @@ class CategoryModel extends BaseModel
 
     public function deleteCategory($category_id)
     {
-        return $this->delete(SELF::TABLE, [
+        return $this->delete(self::POST_CAT_TABLE, [
             'category_id' => $category_id
         ]);
     }
 
-    public function updateCategory($category_id, $category_name) {
-        return $this -> update(SELF::TABLE, [
+    public function updateCategory($category_id, $category_name)
+    {
+        return $this->update(self::POST_CAT_TABLE, [
             'category_name' => $category_name
         ], [
             'category_id' => $category_id
@@ -53,7 +55,7 @@ class CategoryModel extends BaseModel
 
     private function isExistCategoryName($category_name)
     {
-        $querryProd = $this->getOne('categories', [
+        $querryProd = $this->getOne(self::POST_CAT_TABLE, [
             'category_name' => $category_name
         ]);
 
@@ -65,4 +67,5 @@ class CategoryModel extends BaseModel
     }
 
 }
+
 ?>

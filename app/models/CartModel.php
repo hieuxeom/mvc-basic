@@ -5,11 +5,13 @@ class CartModel extends BaseModel
     const ITEM_TABLE = 'cart_items';
     const VOUCHERS_TABLE = 'vouchers';
 
+    const PROD_TABLE = 'products';
+
     public function getCartItems($user_id)
     {
         $cart_id = $this->getCartActive($user_id)['cart_id'];
 
-        $all = $this->getTwoTable(self::ITEM_TABLE, 'product', 'product_id', [
+        $all = $this->getTwoTable(self::ITEM_TABLE, self::PROD_TABLE, 'product_id', [
             'cart_id',
             'product_id',
             'quantity'
@@ -20,7 +22,6 @@ class CartModel extends BaseModel
         ], [
             'cart_id' => $cart_id
         ]);
-        // print_r()
         return $all;
     }
 
@@ -69,7 +70,6 @@ class CartModel extends BaseModel
 
     public function getCartVoucher($user_id)
     {
-        // print_r($this->getCartActive($user_id));
         return $this->getCartActive($user_id)['voucher_code'] ?? null;
 
     }
@@ -82,6 +82,15 @@ class CartModel extends BaseModel
             'cart_id' => $cart_id,
         ]);
 
+    }
+
+    public function removeCartVoucher($cart_id)
+    {
+        return $this->update(self::CART_TABLE, [
+            "voucher_code" => null,
+        ], [
+            "cart_id" => $cart_id
+        ]);
     }
 
     public function getVoucherInfo($voucher_code)
@@ -108,14 +117,8 @@ class CartModel extends BaseModel
 
     private function isVoucherValid($voucherData)
     {
-        print_r($voucherData);
-        // Assuming $voucherData is an associative array with 'valid_from' and 'valid_to' keys
-        // and that these keys contain date strings in 'YYYY-MM-DD' format.
-
-        // Get the current date
         $currentDate = date('Y-m-d');
 
-        // Compare the current date with the validity period of the voucher
         if ($currentDate >= $voucherData['valid_from'] && $currentDate <= $voucherData['valid_to']) {
             return true; // Voucher is valid
         } else {
@@ -130,7 +133,8 @@ class CartModel extends BaseModel
         ]);
         return $this->getCartActive($user_id)['cart_id'];
     }
-    private function getCartActive($user_id)
+
+    public function getCartActive($user_id)
     {
         $rs = $this->getOne(self::CART_TABLE, [
             'user_id' => $user_id,
@@ -142,7 +146,6 @@ class CartModel extends BaseModel
         } else {
             return $rs;
         }
-        ;
     }
 }
 

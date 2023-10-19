@@ -1,43 +1,38 @@
 <?php
-// print_r($products)
-    ?>
-<section id="search-section products">
+echo "<script>
+    document.title =  '$pageTitle';
+</script>";
+?>
+<section id="list-section">
+    <div class="side-container">
+        <ul>
+            <li><a href="#">All</a></li>
+            <?php
+            foreach ($listCategories as $category) {
+                echo "<li><a href='index.php?url=product/category&filter=$category[category_id]'>$category[category_name]</a></li>";
+            }
+            ?>
+        </ul>
+    </div>
     <div class="search-container">
         <?php
-        foreach ($products as $prod) {
-            echo "<div class='box'>
-                <a href='#' class='box-wrapper'></a>
-                <img src='" . BASEPATH . "/public/img/$prod[thumbnail_path]" . "' alt='' />
+        if (!empty($listProducts)) {
+            foreach ($listProducts as $prod) {
+                echo "<div class='box'>
+                <a href='index.php?url=product/show&id=" . $prod['product_id'] . "' class='box-wrapper'></a>
+                <img src='" . BASEPATH . "/public/img/product/prod_$prod[product_id]/$prod[thumbnail_path]" . "' alt='' />
                 <h3>$prod[product_name]</h3>
     
                 <div class='content'>
-                    <span>".number_format($prod['price'])."đ</span>
+                    <span>" . number_format($prod['price']) . "đ</span>
                     <span>$prod[views] Lượt xem</span>
                 </div>
             </div>
                 ";
+            }
+        } else {
+            echo "<h3>Không tìm thấy sản phẩm nào!</h3>";
         }
         ?>
-
-        <!-- <div class='box'>
-            <a href='#' class='box-wrapper'></a>
-            <img src='img/p1.png' alt='' />
-            <h3>Ten san pham</h3>
-
-            <div class='content'>
-                <span>100,000đ</span>
-                <span>50 Lượt xem</span>
-            </div>
-        </div>
-        <div class="box">
-            <a href="#" class="box-wrapper"></a>
-            <img src="img/p1.png" alt="" />
-            <h3>Ten san pham</h3>
-
-            <div class="content">
-                <span>100,000đ</span>
-                <span>50 Lượt xem</span>
-            </div>
-        </div> -->
     </div>
 </section>

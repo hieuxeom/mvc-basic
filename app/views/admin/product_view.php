@@ -1,11 +1,16 @@
 <?php
-    // print_r($list_products);
-    $list_category_name = [];
-    foreach ($list_categories as $item) {
-        if (isset($item['category_name'])) {
-            $list_category_name[] = $item['category_name'];
-        }
+$listCategoryName = [];
+foreach ($listCategories as $item) {
+    if (isset($item['category_name'])) {
+        $listCategoryName[] = $item['category_name'];
     }
+}
+
+
+echo "<script>
+    document.title =  '$pageTitle';
+</script>";
+
 ?>
 <section id="admin-section">
     <div class="head">
@@ -29,11 +34,11 @@
             </thead>
             <tbody>
                 <?php
-                    foreach ($list_products as $item) {
-                        // $category_name = 
-                        echo "<tr>
+                foreach ($listProducts as $item) {
+                    // $category_name =
+                    echo "<tr>
                         <td class='col-id'>$item[product_id]</td>
-                        <td class='col-category'>" . $list_category_name[$item['category_id']-1] . " </td>
+                        <td class='col-category'>" . $listCategoryName[$item['category_id'] - 1] . " </td>
                         <td class='col-name'>$item[product_name]</td>
                         <td class='col-desc'>
                         $item[product_description]
