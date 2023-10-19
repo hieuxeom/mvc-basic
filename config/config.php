@@ -1,6 +1,6 @@
 <?php
-define('DB_HOST', '103.221.221.104');
-define('DB_NAME', 'kdjxkbin_duanmau');
-define('DB_USER', 'kdjxkbin_admin');
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'damdtb');
+define('DB_USER', 'root');
 define('DB_PASS', 'Hieuxeom@123');
 define('BASEPATH', "http://localhost/mvc-basic");
