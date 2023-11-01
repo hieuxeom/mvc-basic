@@ -37,11 +37,7 @@ $controllerName = ucfirst($url[0]) . 'Controller';
 $controllerFile = './app/controllers/' . $controllerName . '.php';
 
 
-if ($controllerName == 'AuthController') {
-    require_once './app/views/base/auth_header.php';
-} else {
-    require_once './app/views/base/header.php';
-}
+require_once './app/views/base/header.php';
 
 
 if (file_exists($controllerFile)) {
@@ -57,11 +53,7 @@ if (file_exists($controllerFile)) {
     showError();
 }
 
-if ($controllerName == 'AuthController') {
-    require_once './app/views/base/auth_footer.php';
-} else {
-    require_once './app/views/base/footer.php';
-}
+require_once './app/views/base/footer.php';
 
 function showError()
 {

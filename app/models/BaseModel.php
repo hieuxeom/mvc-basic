@@ -14,9 +14,9 @@ class BaseModel extends Database
         return $result;
     }
 
-    public function getOne($table, $conditions = [], $select = ['*'])
+    public function getOne($table, $conditions = [], $arraySelect = ['*'])
     {
-        $rs = $this->_queryOne($table, $select, $conditions);
+        $rs = $this->_queryOne($table, $arraySelect, $conditions);
         return $rs;
     }
 
@@ -52,63 +52,13 @@ class BaseModel extends Database
         }
     }
 
-
-    // private function _query($table, $arraySelect = ['*'], $conditions = [], $limit = null, $order = null)
-    // {
-    //     try {
-    //         $column = implode(', ', $arraySelect);
-
-    //         $sql = "SELECT $column FROM $table";
-
-    //         // Check if conditions are provided and build the WHERE clause
-    //         if (!empty($conditions)) {
-    //             $sql .= " WHERE ";
-    //             $conditionsArray = [];
-    //             foreach ($conditions as $column => $value) {
-    //                 $conditionsArray[] = "$column = :$column";
-    //             }
-    //             $sql .= implode(' AND ', $conditionsArray);
-    //         }
-
-    //         if ($limit != null) {
-    //             $sql .= " LIMIT $limit";
-    //         }
-
-    //         if ($order != null) {
-    //             $sql .= " ORDER BY ";
-    //             foreach ($order as $key => $value) {
-    //                 $sql .= " $key $value";
-    //             }
-    //         }
-
-
-    //         $stmt = $this->conn->prepare($sql);
-
-    //         // Bind parameters if conditions are provided
-    //         if (!empty($conditions)) {
-    //             foreach ($conditions as $column => $value) {
-    //                 $stmt->bindValue(":$column", $value);
-    //             }
-    //         }
-
-    //         $stmt->execute();
-
-    //         // Return the result as an associative array
-    //         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    //     } catch (PDOException $e) {
-    //         // Handle any exceptions (e.g., database errors)
-    //         echo "Error: " . $e->getMessage();
-    //         return [];
-    //     }
-    // }
-
     private function _query($table, $arraySelect = ['*'], $conditions = [], $limit = null, $order = null, $likeConditions = [])
     {
         try {
             // Prepare the list of columns to select
             $column = implode(', ', $arraySelect);
 
-            // Initialize the SQL query
+            // SQL Start
             $sql = "SELECT $column FROM $table";
 
             // Check if conditions are provided and build the WHERE clause
@@ -167,14 +117,14 @@ class BaseModel extends Database
                 }
             }
 
+            // Execute
             $stmt->execute();
 
             // Return the result as an associative array
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            // Handle any exceptions (e.g., database errors)
-            echo "Error: " . $e->getMessage();
-            return [];
+            // Return false if query Error;
+            return false;
         }
     }
 
@@ -216,7 +166,7 @@ class BaseModel extends Database
         } catch (PDOException $e) {
             // Handle any exceptions (e.g., database errors)
             echo "Error: " . $e->getMessage();
-            return [];
+            return false;
         }
     }
 
@@ -332,7 +282,7 @@ class BaseModel extends Database
         }
     }
 
-    private function _updateData($table, $data = [], $condition = [])
+    private function _updateData($table, $data = [], $conditions = [])
     {
         try {
             // Create SET clause for updating columns
@@ -345,7 +295,7 @@ class BaseModel extends Database
 
             // Create WHERE clause for conditions
             $whereClause = '';
-            foreach ($condition as $column => $value) {
+            foreach ($conditions as $column => $value) {
                 $whereClause .= "$column = :cond_$column AND ";
             }
             // Remove trailing "AND" and space
@@ -362,7 +312,7 @@ class BaseModel extends Database
             }
 
             // Bind parameters for WHERE clause
-            foreach ($condition as $param => $value) {
+            foreach ($conditions as $param => $value) {
                 $stmt->bindValue(':cond_' . $param, $value);
             }
 

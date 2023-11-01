@@ -1,28 +1,21 @@
 <?php
+
 class HomeController extends BaseController
 {
-    private $productModel;
-    private $productCategoryModel;
+    private $homeModel;
 
     public function __construct()
     {
-        $this->loadModel("ProductModel");
-        $this->productModel = new ProductModel;
-        $this->loadModel("ProductCategoryModel");
-        $this->productCategoryModel = new ProductCategoryModel;
+        $this->loadModel("HomeModel");
+        $this->homeModel = new HomeModel();
     }
 
     public function index()
     {
-        $listProduct = $this->productModel->getAllProducts(limit: 10, order: ["views" => "desc"]);
-
-
-        return $this->view(
-            "home.index",
-            [
-                "listProduct" => $listProduct,
-                "pageTitle" => "Trang chủ"
-            ]
-        );
+        return $this->view(viewPath: "home.index", params: [
+            "pageTitle" => "Test title",
+            "usersData" => $this->homeModel->getAllUser()
+        ]);
     }
+
 }
